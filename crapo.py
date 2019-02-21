@@ -32,6 +32,7 @@ args = Args()
 # def crapo_decrypt(key, filename):
 #     FileCipher(filename,filename.replace(".crp__", ".crp0"),mac,"D")
 
+# os.system("pip install pyAesCrypt")
 
 def encrypt(path, key):
     print("> Encrypting ", path)
@@ -139,7 +140,7 @@ def main():
                     else:
                         print("> This path " + str(path) + " is not valid, please verify it again before relaunch me.")
             else:
-                print("> This path(file/directory) is not valid.")
+                print("> This path " + str(path) + " (file/directory) is not valid.")
 
         else:
             error_oooo()

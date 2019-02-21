@@ -3,7 +3,7 @@
 # start.py
 # Made by S@n1X-d4rk3r
 
-import os, sys
+import os, sys, time
 import getpass
 
 print("\n> -----------------------------------------------------------------------------")
@@ -26,9 +26,13 @@ def getMethod():
 
 def getPath():
     path = input("> Give me a valid path of your file/directory! \n> Path (of a file or directory):")
+    path = ' '.join(path.split())
     if os.path.isfile(path) == False and os.path.isdir(path) == False:
         sys.exit("> Error, Choose a valid path!")
     else:
+        if " " in path :
+            path = '"' + path + '"'
+        print("path: ", path)
         return path
 
 def getSecret():
@@ -39,14 +43,14 @@ def getSecret():
         sys.exit("> Error, Please provide the secret code")
 
 def getErase():
-    if(Encrypt == True):
-        erase = input("> Do you want to erase origin's files after encryption ? \n> Erase (y / n):")
-        if "y" in erase.lower():
-            return "erase"
-        elif "n" in erase.lower():
-            return ""
-        else:
-            sys.exit("> Error, Please Choose if you want to erase Origin's files")
-    return "erase"
+    erase = input("> Do you want to erase origin's files after encryption ? \n> Erase (y / n):")
+    if "y" in erase.lower():
+        return "erase"
+    elif "n" in erase.lower():
+        return ""
+    else:
+        sys.exit("> Error, Please Choose if you want to erase Origin's files")
 
-os.system("python crapo.py "+getMethod()+" '"+getPath()+"' "+getSecret()+" "+ getErase()+" not_cli")
+os.system('python crapo.py '+getMethod()+' '+getPath()+' '+getSecret()+' '+ getErase()+' not_cli')
+
+time.sleep(30)

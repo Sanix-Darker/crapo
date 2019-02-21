@@ -3,14 +3,19 @@
 ## Introduction
 A simple tool to encrypt/decrypt your personnals/private files or directory.
 
+## Requirements
+
+- Python 3.X (if you don't want to have troubleshouting on Python 2.x)
 
 ## installation
 
 To install Crapo, just hit theese commands:
 ```shell
+# Launch this file, il you are a linux user and follow instructions
+install.sh
 
-pip install setuptools --upgrade --ignore-installed
-pip install -r requirements.txt
+# Launch this file, il you are a WINDOWS user and follow instructions
+install.bat
 
 ### All done.
 ```
@@ -36,8 +41,10 @@ cd to/path/of/the/project
 # Launch this file, il you are a linux user and follow instructions
 starter_for_linux.sh
 
-# Launch this file, il you are a WINDOWS user and follow instructions
-starter_for_windows.bat
+# if you are a WINDOWS user
+# open the Cmd in this folder
+python start.py
+
 ```
 
 #### CLI Usage
@@ -62,6 +69,10 @@ python crapo.py decrypt ./Personnaldirectory/ your_secret_code
 # or for file
 python crapo.py decrypt ./personal.file your_secret_code
 ```
+
+## DEMO HERE
+
+[See DEMO](https://youtu.be/MajlnQmW7vQ)
 
 ## Author
 
