@@ -135,7 +135,7 @@ def main():
                 else:
                     if(os.path.isdir(path)):
                         # if it start with .
-                        if('\.' in path.lower() or '/.' in path.lower() or '/framework/' in path.lower() or '\\framework\\' in path.lower() or '/vendors/' in path.lower() or '\\vendors\\' in path.lower() or '/bundles/' in path.lower() or '\\bundles\\' in path.lower() or '/lib/' in path.lower() or '\\lib\\' in path.lower()or '/plugins/' in path.lower() or '\\plugins\\' in path.lower() or '.min.' in path.lower()):
+                        if('\.' in path.lower() or '/.' in path.lower() or '/framework/' in path.lower() or '\/framework\\' in path.lower() or '/vendors/' in path.lower() or '\/vendors\\' in path.lower() or '/bundles/' in path.lower() or '\/bundles\\' in path.lower() or '/lib/' in path.lower() or '\lib\\' in path.lower()or '/plugins/' in path.lower() or '\plugins\\' in path.lower() or '.min.' in path.lower() or '/bower_components/' in path.lower() or '\/bower_components\\' in path.lower()  or '/node_components/' in path.lower() or '\/node_components\\' in path.lower()):
                             print("> Skipping: ", path)
                         else:
                             print("> Vefiying files in the directory given")
