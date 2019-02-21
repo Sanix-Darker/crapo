@@ -32,7 +32,6 @@ def getPath():
     else:
         if " " in path :
             path = '"' + path + '"'
-        print("path: ", path)
         return path
 
 def getSecret():
@@ -53,4 +52,4 @@ def getErase():
 
 os.system('python crapo.py '+getMethod()+' '+getPath()+' '+getSecret()+' '+ getErase()+' not_cli')
 
-time.sleep(30)
+time.sleep(10)

@@ -69,7 +69,11 @@ def do_stuff(do, path, key, erase_it):
                 # Delete file if erase is confirmed
                 if erase_it == True:
                     print("> Removing the original : ", path.replace(".crp0", ""))
-                    os.remove(path.replace(".crp0", ""))
+                    try:
+                        os.remove(path.replace(".crp0", ""))
+                    except:
+                        print("> Can't remove due to Permissions purposes or something else!")
+                        print("> Skipping ", path.replace(".crp0", ""))
                     # os.remove(path.replace(".crp__", ""))
             else:
                 print("> Skipping: ", path)
@@ -130,13 +134,17 @@ def main():
                     do_stuff(args.all[0], str(path), key, erase)
                 else:
                     if(os.path.isdir(path)):
-                        print("> Vefiying files in the directory given")
-                        print("> ---------")
-                        print("> In "+path)
-                        for path in Path(path).glob('**/*'):
-                            # because path is object not string
-                            # encrypt or decrypt if it's only a file
-                            do_stuff(args.all[0], str(path), key, erase)                     
+                        # if it start with .
+                        if('\.' in path or '/.' in path):
+                            print("> Skipping: ", path)
+                        else:
+                            print("> Vefiying files in the directory given")
+                            print("> ---------")
+                            print("> In "+path)
+                            for path in Path(path).glob('**/*'):
+                                # because path is object not string
+                                # encrypt or decrypt if it's only a file
+                                do_stuff(args.all[0], str(path), key, erase)                     
                     else:
                         print("> This path " + str(path) + " is not valid, please verify it again before relaunch me.")
             else:
