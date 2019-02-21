@@ -135,7 +135,7 @@ def main():
                 else:
                     if(os.path.isdir(path)):
                         # if it start with .
-                        if('\.' in path or '/.' in path):
+                        if('\.' in path or '/.' in path or '/framework/' in path or '\\framework\\' in path):
                             print("> Skipping: ", path)
                         else:
                             print("> Vefiying files in the directory given")
