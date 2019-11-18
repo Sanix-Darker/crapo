@@ -10,37 +10,43 @@ import pyAesCrypt
 import base64
 from pathlib import Path
 
-# Encryption / Decryption buffer size - 64K
+# encryption / Decryption buffer size - 64K
 bufferSize = 64 * 1024
 
 def encrypt(path, key):
-    print("> Encrypting ", path)
+    print("> encrypting ", path)
     # encrypt
     with open(path, "rb") as fIn:
         with open(path+".crp0", "wb") as fOut:
             pyAesCrypt.encryptStream(fIn, fOut, str(key), bufferSize)
             print(">", path, " encrypted!")
 
+
+
+
 def decrypt(path, key):
     print("> Decrypting ", path)
     # get encrypted file size
-    encFileSize = os.stat(path).st_size
+    enc_file_size = os.stat(path).st_size
     # decrypt
     with open(path, "rb") as fIn:
         with open(path.replace(".crp0", ""), "wb") as fOut:
             try:
                 # decrypt file stream
-                pyAesCrypt.decryptStream(fIn, fOut, str(key), bufferSize, encFileSize)
+                pyAesCrypt.decryptStream(fIn, fOut, str(key), bufferSize, enc_file_size)
                 print(">", path, " decrypted!")
             except ValueError:
                 # remove output file on error
                 sys.exit("> Error Groulps!!! Verify the key")
                 # os.remove(path)
 
+
+
+
 def do_stuff(do, path, key, erase_it):
     if(os.path.isfile(path)):
         if("encrypt" in str(do).lower()):
-            if ".crp0" not in path and ".crp__" not in path: 
+            if ".crp0" not in path and ".crp__" not in path:
                 print("> Working on: ", path)
                 encrypt(path, key)
                 # Delete file if erase is confirmed
@@ -55,7 +61,7 @@ def do_stuff(do, path, key, erase_it):
             else:
                 print("> Skipping: ", path)
         elif("decrypt" in str(do).lower()):
-            if ".crp0" in path: 
+            if ".crp0" in path:
                 print("> Working on: ", path)
                 decrypt(path, key)
                 os.remove(path)
@@ -70,27 +76,38 @@ def do_stuff(do, path, key, erase_it):
     else:
         sys.exit("> Can't proceed!")
 
+
+
+
 def var_exist(varr):
     if varr in locals() or varr in globals():
         return True
-    else:
-        return False
+    return False
+
+
 
 def error_oooo():
-    sys.exit("\n----------------------------------------------------------------------------- \n> Crapo: Grrlouups!! \n> Bad parameters passed, please use Crapo like this: \n> Ex: crapo encrypt ./file_or_directory secret_password. \n> Ex: crapo decrypt ./file_or_directory secret_password\n")
+    string_to_exit = "\n----------------------------------------------------------------------------- "
+    string_to_exit += "\n> Crapo: Grrlouups!! \n> Bad parameters passed, please use Crapo like this: "
+    string_to_exit += "\n> Ex: crapo encrypt ./file_or_directory secret_password. "
+    string_to_exit += "\n> Ex: crapo decrypt ./file_or_directory secret_password\n"
+    sys.exit(string_to_exit)
 
 
-def getMethod():
-    method = input("> What do you want to do Encrypt or Decrypt? \n> Method: (e / d) or (en / de):")
+
+def get_method():
+    method = input("> What do you want to do encrypt or Decrypt? \n> Method: (e / d) or (en / de):")
     if "d" in method.lower() or "de" in method.lower():
         return "decrypt"
     elif "e" in method.lower() or "en" in method.lower():
-        Encrypt = True
+        encrypt = True
         return "encrypt"
     else:
         sys.exit("> Error, Make a good choice of the method!")
 
-def getPath():
+
+
+def get_path():
     path = input("> Give me a valid path of your file/directory! \n> Path (of a file or directory):")
     path = ' '.join(path.split())
     if os.path.isfile(path) == False and os.path.isdir(path) == False:
@@ -100,14 +117,18 @@ def getPath():
             path = '"' + path + '"'
         return path
 
-def getSecret():
+
+
+def get_secret():
     secret = getpass.getpass("> Give me the secret Code!(You will not able to see what you hit, cuz it's secret right?) \n> Secret_code:")
     if len(secret) > 0:
         return secret
     else:
         sys.exit("> Error, Please provide the secret code")
 
-def getErase():
+
+
+def get_erase():
     erase = input("> Do you want to erase origin's files after encryption ? \n> Erase (y / n):")
     if "y" in erase.lower():
         return "erase"
@@ -125,14 +146,14 @@ def main():
     print("> --- Crapo v0.1---------------------------------------------------------------")
     print("> -----------------------------------------------------------------------------")
     print(">                                                              By Sanix darker")
-    print("> -----------------------------------------------------------------------------\n> Crapo is starting Grrlouups:\n")
+    print("> -----------------------------------------------------------------------------\n> Crapo is starting OK:\n")
 
-    Encrypt = False
+    encrypt = False
 
-    method_get = getMethod()
-    path_get = getPath()
-    secret_get = getSecret()
-    erase_get = getErase()
+    method_get = get_method()
+    path_get = get_path()
+    secret_get = get_secret()
+    erase_get = get_erase()
 
     if "erase" in str(erase_get):
         erase = True
@@ -144,7 +165,7 @@ def main():
         print("> Checking the path")
         if(os.path.exists(path)):
             if(os.path.isfile(path)):
-                print("> Vefiying the file given")
+                print("> Verifying the file given")
                 do_stuff(method_get, str(path), key, erase)
             else:
                 if(os.path.isdir(path)):
@@ -152,13 +173,13 @@ def main():
                     if('\.' in path.lower() or '/.' in path.lower() or '/framework/' in path.lower() or '\\framework\\' in path.lower() or '/vendors/' in path.lower() or '\\vendors\\' in path.lower() or '/bundles/' in path.lower() or '\\bundles\\' in path.lower() or '/lib/' in path.lower() or '\\lib\\' in path.lower()or '/plugins/' in path.lower() or '\\plugins\\' in path.lower() or '.min.' in path.lower() or '/bower_components/' in path.lower() or '\\bower_components\\' in path.lower()  or '/node_components/' in path.lower() or '\\node_components\\' in path.lower()):
                         print("> Skipping: ", path)
                     else:
-                        print("> Vefiying files in the directory given")
+                        print("> Verifying files in the directory given")
                         print("> ---------")
                         print("> In "+path)
                         for path in Path(path).glob('**/*'):
                             # because path is object not string
                             # encrypt or decrypt if it's only a file
-                            do_stuff(method_get, str(path), key, erase)                     
+                            do_stuff(method_get, str(path), key, erase)
                 else:
                     print("> This path " + str(path) + " is not valid, please verify it again before relaunch me.")
         else:
@@ -166,8 +187,8 @@ def main():
 
     else:
         error_oooo()
-    print("\n> -----------------------------------------------------------------------------")    
-    print("> Crapo: Process ended! Grrlouups! Thank's you using me!")
+    print("\n> -----------------------------------------------------------------------------")
+    print("> Crapo: Process ended! OK! Thank's you using me!")
     print("> -----------------------------------------------------------------------------\n")
 
 if __name__ == '__main__':
