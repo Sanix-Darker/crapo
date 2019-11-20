@@ -1,14 +1,28 @@
 #!/usr/bin/env python
 # coding=utf-8
-# Crapo
+
+#
+# ---------------------------
+# / __| '__/ _` | '_ \ / _ \
+#| (__| | | (_| | |_) | (_) |
+# \___|_|  \__,_| .__/ \___/
+#               |_|
+# ---------------------------
 # Crypt your files / directories easy
 # Made by S@n1X-d4rk3r
+#
 
-import os, sys, time
-import getpass
-import pyAesCrypt
+import os, sys
+from sys import exit
+
 import base64
-from pathlib import Path
+import getpass
+
+try: import pyAesCrypt
+except ImportError as es: exit(str(es))
+
+try: from pathlib import Path
+except ImportError as es: exit(str(es))
 
 # encryption / Decryption buffer size - 64K
 bufferSize = 64 * 1024
@@ -20,8 +34,6 @@ def encrypt(path, key):
         with open(path+".crp0", "wb") as fOut:
             pyAesCrypt.encryptStream(fIn, fOut, str(key), bufferSize)
             print(">", path, " encrypted!")
-
-
 
 
 def decrypt(path, key):
