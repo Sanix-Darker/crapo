@@ -14,14 +14,11 @@
 
 from os import path as ospath
 from sys import exit
-
 import base64
-
 from methods import *
 
 try: from pathlib import Path
 except ImportError as es: exit(str(es))
-
 
 crapo_start()
 erase, encrypt = False, False
